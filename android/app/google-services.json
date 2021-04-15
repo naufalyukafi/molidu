@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "109794889729",
+    "project_id": "molidu-learning",
+    "storage_bucket": "molidu-learning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109794889729:android:2b0b5107c501f46424b000",
+        "android_client_info": {
+          "package_name": "com.molidu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109794889729-vgqf8vqoeivm6l46a5v3h4k27gclqmmn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyxCXJFhvL7guXJ2DoxUE6mw7ijTAbVv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109794889729-vgqf8vqoeivm6l46a5v3h4k27gclqmmn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
