@@ -35,7 +35,7 @@ const App = () => {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <Text>Coba</Text>
+        <Text>Testing</Text>
       </ApplicationProvider>
     </>
   );
