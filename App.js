@@ -13,11 +13,7 @@ import { ApplicationProvider, Layout, Text, IconRegistry } from '@ui-kitten/comp
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import firebase from '@react-native-firebase/app';
 
-const HomeScreen = () => (
-  <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text category='h1'>HOME</Text>
-  </Layout>
-);
+
 
 const App = () => {
 
@@ -39,7 +35,7 @@ const App = () => {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <HomeScreen />
+        <Text>Coba</Text>
       </ApplicationProvider>
     </>
   );
