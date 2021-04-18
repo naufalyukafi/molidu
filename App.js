@@ -9,10 +9,10 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text, IconRegistry } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import firebase from '@react-native-firebase/app';
-
+import Router from './src/router'
 
 
 const App = () => {
@@ -35,7 +35,7 @@ const App = () => {
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <Text>Testing</Text>
+        <Router />
       </ApplicationProvider>
     </>
   );
