@@ -1,8 +1,18 @@
-import React from 'react';
-import {View, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+  Alert,
+} from 'react-native';
 import {Button, Text, Icon, Input} from '@ui-kitten/components';
+import auth from '@react-native-firebase/auth';
+
 const Login = ({navigation}) => {
-  const [value, setValue] = React.useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
   const AlertIcon = props => <Icon {...props} name="alert-circle-outline" />;
@@ -14,6 +24,26 @@ const Login = ({navigation}) => {
       <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
   );
+
+  const onLogin = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setEmail('');
+        setPassword('');
+        Alert.alert('Akun molidu berhasil login');
+        navigation.navigate('HomeScreen');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('alamat email ini sudah digunakan!');
+        }
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('email salah, mohon koreksi kembali!');
+        }
+        Alert.alert(error.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -33,24 +63,24 @@ const Login = ({navigation}) => {
       />
       <View style={styles.bottom}>
         <Input
-          value={value}
+          value={email}
           label="Email"
           placeholder="Masukkan email anda"
-          onChangeText={nextValue => setValue(nextValue)}
+          onChangeText={nextValue => setEmail(nextValue)}
           style={styles.input}
         />
         <Input
-          value={value}
+          value={password}
           label="Password"
           placeholder="Masukkan password anda"
           caption="Minimal harus ada 6 huruf"
           accessoryRight={renderIcon}
           captionIcon={AlertIcon}
           secureTextEntry={secureTextEntry}
-          onChangeText={nextValue => setValue(nextValue)}
+          onChangeText={nextValue => setPassword(nextValue)}
           style={styles.input}
         />
-        <Button onPress={() => navigation.navigate('HomeScreen')}>Masuk</Button>
+        <Button onPress={() => onLogin()}>Masuk</Button>
         <Text style={styles.textForgot}>Lupa password?</Text>
       </View>
     </View>
@@ -62,10 +92,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1890FF',
     alignItems: 'center',
-  },
-  top: {
-    flex: 2,
-    marginLeft: 90,
   },
   bottom: {
     flex: 2,

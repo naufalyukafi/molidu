@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import {LoginScreen, SignupScreen, IntroScreen} from '../pages/auth';
 import {HomeScreen} from '../pages/modules';
@@ -11,6 +12,12 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Router = () => {
+  React.useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '109794889729-vgqf8vqoeivm6l46a5v3h4k27gclqmmn.apps.googleusercontent.com',
+    });
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="IntroScreen">
