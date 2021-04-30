@@ -17,7 +17,7 @@ const Signup = ({navigation}) => {
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
   const AlertIcon = props => <Icon {...props} name="alert-circle-outline" />;
-  
+
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
   };

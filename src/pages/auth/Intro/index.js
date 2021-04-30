@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Alert} from 'react-native';
 import {Button, Text, Icon} from '@ui-kitten/components';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -17,8 +17,8 @@ const Intro = ({navigation}) => {
 
       // Sign-in the user with the credential
       await auth().signInWithCredential(googleCredential);
-      await navigation.navigate('Screen');
-      Alert.alert(error.message);
+      await navigation.navigate('HomeScreen');
+      Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu');
     } catch (err) {
       console.error(err);
     }
@@ -51,15 +51,15 @@ const Intro = ({navigation}) => {
           Daftar
         </Button>
         <Button
-            style={styles.btnGoogle}
-            accessoryLeft={GoogleIcon}
-            onPress={() => onGoogleButtonPress()}
-        >
-            Masuk dengan Google
+          style={styles.btnGoogle}
+          accessoryLeft={GoogleIcon}
+          onPress={() => onGoogleButtonPress()}>
+          Masuk dengan Google
         </Button>
         <Text style={styles.textPriv}>
           Dengan masuk atau mendaftar, Anda menyetujui
-          <Text style={styles.span}> Ketentuan Layanan</Text> dan <Text style={styles.span}>Kebijakan Privasi</Text>
+          <Text style={styles.span}> Ketentuan Layanan</Text> dan{' '}
+          <Text style={styles.span}>Kebijakan Privasi</Text>
         </Text>
       </View>
     </View>
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    marginBottom: 40
+    marginBottom: 40,
   },
   bottom: {
     flex: 3,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   btnGoogle: {
     backgroundColor: '#4367B2',
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   span: {
     color: '#41A4FF',

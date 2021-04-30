@@ -1,3 +1,5 @@
-import LoadingScreen from './Loading'
+import LoadingScreen from './Loading';
+import CardScreen from './Card';
+import CardMapelScreen from './CardMapel';
 
-export {LoadingScreen}
+export {LoadingScreen, CardScreen, CardMapelScreen};
