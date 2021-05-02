@@ -1,23 +1,29 @@
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
-import {Button, Text, Icon} from '@ui-kitten/components';
-const Card = props => {
+import {Text} from '@ui-kitten/components';
+import moment from 'moment';
+const Card = ({item}) => {
   return (
     <View style={styles.wrapper}>
-      <View style={styles.cardTitle}>
-        <Text style={{color: '#fff', fontWeight: 'bold'}}>{props.name}</Text>
-      </View>
-      <View style={styles.content}>
-        <Image
-          source={require('../../assets/images/dashboard-image.png')}
-          style={styles.image}
-        />
-        <View style={styles.contentDesc}>
-          <Text>Nama: {props.name}</Text>
-          <Text>Status: {props.status}</Text>
-        </View>
-      </View>
-      <View style={{height: 3, backgroundColor: 'gray', marginTop: 10}} />
+      {moment().format('LL') ===
+        moment(item.attendanceTime.toDate()).format('LL') && (
+        <>
+          <View style={styles.cardTitle}>
+            <Text style={{color: '#fff', fontWeight: 'bold'}}>
+              {item.email}
+            </Text>
+          </View>
+          <View style={styles.contentImage}>
+            <Image source={{uri: item.image}} style={styles.image} />
+          </View>
+          <View style={styles.contentDesc}>
+            <Text>Nama: {item.email}</Text>
+            <Text>Status: {item.status}</Text>
+            <Text>Waktu: {moment(item.attendanceTime.toDate()).fromNow()}</Text>
+          </View>
+          <View style={{height: 3, backgroundColor: 'gray', marginTop: 10}} />
+        </>
+      )}
     </View>
   );
 };
@@ -33,12 +39,18 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 15,
   },
-  content: {
-    flexDirection: 'row',
+  contentImage: {
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    alignContent: 'center',
+    marginBottom: 20,
   },
   image: {
-    height: 150,
-    width: 150,
+    marginTop: 10,
+    height: 250,
+    width: 250,
+    // borderRadius: 250 / 2,
   },
   contentDesc: {
     paddingLeft: 5,

@@ -1,21 +1,25 @@
-import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
-import { Button, Text, Icon } from '@ui-kitten/components'
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import {Spinner, Text} from '@ui-kitten/components';
+
 const Loading = () => {
-    return (
-        <View style={styles.wrapper}>
-            <Text>Loading</Text>
-        </View>
-    )
-}
+  return (
+    <View style={styles.wrapper}>
+      <Text style={styles.infoText}>Mohon Tunggu Sebentar...</Text>
+      <Spinner size="giant" status="info" />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        backgroundColor: '#1890FF',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-})
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  infoText: {
+    marginBottom: 10,
+  },
+});
 
-export default Loading
+export default Loading;

@@ -1,16 +1,62 @@
-import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {Text, Button} from '@ui-kitten/components';
-import {CardScreen} from '../../../../components';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, FlatList} from 'react-native';
+import {Text} from '@ui-kitten/components';
+import {CardScreen, LoadingScreen} from '../../../../components';
+import firestore from '@react-native-firebase/firestore';
+import moment from 'moment';
+
 const GetAbsensi = () => {
+  const [attendance, setAttendance] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const list = [];
+        await firestore()
+          .collection('Attendance')
+          .orderBy('attendanceTime', 'desc')
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              const {email, image, status, attendanceTime} = doc.data();
+              list.push({
+                id: doc.id,
+                email,
+                image,
+                status,
+                attendanceTime,
+              });
+            });
+          });
+        setAttendance(list);
+        if (loading) {
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchAttendance();
+  }, []);
   return (
     <View style={styles.container}>
-      <Text>Tanggal: 20 - 05 - 2021</Text>
+      <Text>Tanggal: {moment().format('LL')}</Text>
       <View style={{height: 3, backgroundColor: 'gray', marginTop: 10}} />
-      <ScrollView>
-        <CardScreen name="Paijo Supratman" status="Hadir" />
-        <CardScreen name="Sukiyem Leobi" status="Hadir" />
-      </ScrollView>
+      {loading ? (
+        <LoadingScreen />
+      ) : attendance != null ? (
+        <FlatList
+          data={attendance}
+          renderItem={({item}) => <CardScreen item={item} />}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          style={{marginBottom: 20}}
+        />
+      ) : (
+        <Text style={{marginTop: 20}}>
+          Belum ada siswa yang melakukan absensi
+        </Text>
+      )}
     </View>
   );
 };
