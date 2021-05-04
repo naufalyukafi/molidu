@@ -44,7 +44,7 @@ const GetAbsensi = () => {
       <View style={{height: 3, backgroundColor: 'gray', marginTop: 10}} />
       {loading ? (
         <LoadingScreen />
-      ) : attendance != null ? (
+      ) : (
         <FlatList
           data={attendance}
           renderItem={({item}) => <CardScreen item={item} />}
@@ -52,10 +52,6 @@ const GetAbsensi = () => {
           showsVerticalScrollIndicator={false}
           style={{marginBottom: 20}}
         />
-      ) : (
-        <Text style={{marginTop: 20}}>
-          Belum ada siswa yang melakukan absensi
-        </Text>
       )}
     </View>
   );
