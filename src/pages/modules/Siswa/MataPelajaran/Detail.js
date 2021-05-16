@@ -35,6 +35,7 @@ const DetailMataPelajaran = ({navigation}) => {
   };
   return (
     <View style={styles.wrapper}>
+      <Text>Mapel: Matematika</Text>
       <TouchableOpacity onPress={() => navigation.navigate('ChatGuru')}>
         <CardMapelScreen lessonName="Materi" bgLesson="#1890FF" />
       </TouchableOpacity>

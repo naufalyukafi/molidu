@@ -24,7 +24,11 @@ const ChatGuru = () => {
         data={data}
         ItemSeparatorComponent={Divider}
         renderItem={({item}) => (
-          <ListItem title={item.title} description={item.description} />
+          <ListItem
+            key={item.id}
+            title={item.title}
+            description={item.description}
+          />
         )}
       />
     </View>

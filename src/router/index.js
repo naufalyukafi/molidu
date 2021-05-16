@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
+import {StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
+import {Button, Icon} from '@ui-kitten/components';
 import {HomeScreen, RoomScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
@@ -21,6 +22,7 @@ import {
   AbsensiGuruScreen,
   TugasGuruScreen,
   ChatMateriGuruScreen,
+  CreateChatRoomScreen,
 } from '../pages/modules/Guru';
 import ChatSiswa from '../pages/modules/Siswa/Chat';
 
@@ -38,6 +40,9 @@ const Router = () => {
     const userInfo = auth().currentUser;
     setUser(userInfo);
   }, []);
+  const StarIcon = props => (
+    <Icon {...props} style={styles.icon} fill="#fff" name="plus-circle" />
+  );
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="IntroScreen">
@@ -110,26 +115,59 @@ const Router = () => {
             headerTitleAlign: 'center',
           }}
         />
+        {user.email === 'molidulearning@gmail.com' ? (
+          <Stack.Screen
+            name="Grup"
+            component={ChatSiswa}
+            options={({navigation}) => ({
+              headerLeft: false,
+              headerTitle: 'Grup Kelas',
+              headerStyle: {backgroundColor: '#1890FF'},
+              headerTintColor: '#fff',
+              headerTitleAlign: 'center',
+              headerRight: () => (
+                <Button
+                  appearance="ghost"
+                  accessoryLeft={StarIcon}
+                  onPress={() => navigation.navigate('NewGrup')}
+                />
+              ),
+            })}
+          />
+        ) : (
+          <Stack.Screen
+            name="Grup"
+            component={ChatSiswa}
+            options={({navigation}) => ({
+              headerLeft: false,
+              headerTitle: 'Grup Kelas',
+              headerStyle: {backgroundColor: '#1890FF'},
+              headerTintColor: '#fff',
+              headerTitleAlign: 'center',
+            })}
+          />
+        )}
+
         <Stack.Screen
-          name="Grup"
-          component={ChatSiswa}
+          name="NewGrup"
+          component={CreateChatRoomScreen}
           options={{
-            headerLeft: false,
-            headerTitle: 'Grup Kelas',
+            headerTitle: 'Grup Baru',
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
           }}
         />
+
         <Stack.Screen
           name="Room"
           component={RoomScreen}
-          options={{
-            headerTitle: 'Ruangan Diskusi',
+          options={({route}) => ({
+            title: route.params.thread.name,
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
-          }}
+          })}
         />
         <Stack.Screen
           name="DashboardMataPelajaran"
@@ -197,3 +235,10 @@ const Router = () => {
   );
 };
 export default Router;
+
+const styles = StyleSheet.create({
+  icon: {
+    width: 35,
+    height: 35,
+  },
+});
