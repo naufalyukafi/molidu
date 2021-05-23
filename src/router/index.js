@@ -10,19 +10,20 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
 import {Button, Icon} from '@ui-kitten/components';
-import {HomeScreen, RoomScreen} from '../pages/modules';
+import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
   FotoAbsensiScreen,
-  MataPelajaranDashboardScreen,
   DetailMataPelajaranScreen,
   UploadTugasScreen,
+  RoomStudentScreen,
 } from '../pages/modules/Siswa';
 import {
   AbsensiGuruScreen,
   TugasGuruScreen,
-  ChatMateriGuruScreen,
   CreateChatRoomScreen,
+  NewLessonScreen,
+  RoomLessonScreen,
 } from '../pages/modules/Guru';
 import ChatSiswa from '../pages/modules/Siswa/Chat';
 
@@ -116,36 +117,70 @@ const Router = () => {
           }}
         />
         {user.email === 'molidulearning@gmail.com' ? (
-          <Stack.Screen
-            name="Grup"
-            component={ChatSiswa}
-            options={({navigation}) => ({
-              headerLeft: false,
-              headerTitle: 'Grup Kelas',
-              headerStyle: {backgroundColor: '#1890FF'},
-              headerTintColor: '#fff',
-              headerTitleAlign: 'center',
-              headerRight: () => (
-                <Button
-                  appearance="ghost"
-                  accessoryLeft={StarIcon}
-                  onPress={() => navigation.navigate('NewGrup')}
-                />
-              ),
-            })}
-          />
+          <>
+            <Stack.Screen
+              name="Grup"
+              component={ChatSiswa}
+              options={({navigation}) => ({
+                headerLeft: false,
+                headerTitle: 'Grup Kelas',
+                headerStyle: {backgroundColor: '#1890FF'},
+                headerTintColor: '#fff',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Button
+                    appearance="ghost"
+                    accessoryLeft={StarIcon}
+                    onPress={() => navigation.navigate('NewGrup')}
+                  />
+                ),
+              })}
+            />
+            <Stack.Screen
+              name="Lesson"
+              component={LessonScreen}
+              options={({navigation}) => ({
+                headerLeft: false,
+                headerTitle: 'Mata Pelajaran',
+                headerStyle: {backgroundColor: '#1890FF'},
+                headerTintColor: '#fff',
+                headerTitleAlign: 'center',
+
+                headerRight: () => (
+                  <Button
+                    appearance="ghost"
+                    accessoryLeft={StarIcon}
+                    onPress={() => navigation.navigate('NewLesson')}
+                  />
+                ),
+              })}
+            />
+          </>
         ) : (
-          <Stack.Screen
-            name="Grup"
-            component={ChatSiswa}
-            options={({navigation}) => ({
-              headerLeft: false,
-              headerTitle: 'Grup Kelas',
-              headerStyle: {backgroundColor: '#1890FF'},
-              headerTintColor: '#fff',
-              headerTitleAlign: 'center',
-            })}
-          />
+          <>
+            <Stack.Screen
+              name="Grup"
+              component={ChatSiswa}
+              options={({navigation}) => ({
+                headerLeft: false,
+                headerTitle: 'Grup Kelas',
+                headerStyle: {backgroundColor: '#1890FF'},
+                headerTintColor: '#fff',
+                headerTitleAlign: 'center',
+              })}
+            />
+            <Stack.Screen
+              name="Lesson"
+              component={LessonScreen}
+              options={({navigation}) => ({
+                headerLeft: false,
+                headerTitle: 'Mata Pelajaran',
+                headerStyle: {backgroundColor: '#1890FF'},
+                headerTintColor: '#fff',
+                headerTitleAlign: 'center',
+              })}
+            />
+          </>
         )}
 
         <Stack.Screen
@@ -169,18 +204,39 @@ const Router = () => {
             headerTitleAlign: 'center',
           })}
         />
+
         <Stack.Screen
-          name="DashboardMataPelajaran"
-          component={MataPelajaranDashboardScreen}
+          name="NewLesson"
+          component={NewLessonScreen}
           options={{
-            headerLeft: false,
-            headerTitle: 'Mata Pelajaran',
+            headerTitle: 'Mata Pelajaran Baru',
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
           }}
         />
+
         <Stack.Screen
+          name="RoomLesson"
+          component={RoomLessonScreen}
+          options={({route}) => ({
+            title: route.params.threadLesson.mapel,
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+        <Stack.Screen
+          name="RoomStudent"
+          component={RoomStudentScreen}
+          options={({route}) => ({
+            title: route.params.threadLesson.mapel,
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+        {/* <Stack.Screen
           name="DetailMataPelajaran"
           component={DetailMataPelajaranScreen}
           options={{
@@ -189,8 +245,8 @@ const Router = () => {
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
           }}
-        />
-        <Stack.Screen
+        /> */}
+        {/* <Stack.Screen
           name="ChatGuru"
           component={ChatMateriGuruScreen}
           options={{
@@ -199,7 +255,7 @@ const Router = () => {
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
           }}
-        />
+        /> */}
         <Stack.Screen
           name="Chat Materi"
           component={DetailMataPelajaranScreen}

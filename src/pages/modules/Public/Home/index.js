@@ -6,7 +6,7 @@ import {Text, Button} from '@ui-kitten/components';
 const Home = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = React.useState();
 
   // Handle user state changes
   const onAuthStateChanged = user => {
@@ -61,7 +61,7 @@ const Home = ({navigation}) => {
         </Button>
         <Button
           style={styles.card}
-          onPress={() => navigation.navigate('DashboardMataPelajaran')}>
+          onPress={() => navigation.navigate('Lesson')}>
           Mata Pelajaran
         </Button>
       </View>

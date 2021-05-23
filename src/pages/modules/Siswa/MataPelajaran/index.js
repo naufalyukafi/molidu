@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Alert,
@@ -10,28 +10,29 @@ import {
 import {Text, Button} from '@ui-kitten/components';
 import {CardMapelScreen} from '../../../../components';
 const MataPelajaran = ({navigation}) => {
+  const [mapel, setMapel] = useState([
+    {
+      id: 1,
+      name: 'Tematik',
+    },
+    {
+      id: 2,
+      name: 'Bahasa Inggris',
+    },
+    {
+      id: 3,
+      name: 'Agama Islam',
+    },
+  ]);
   return (
     <View style={styles.wrapper}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('DetailMataPelajaran')}>
-        <CardMapelScreen lessonName="Tematik" bgLesson="#1890FF" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('DetailMataPelajaran')}>
-        <CardMapelScreen
-          lessonName="Bahasa Inggris"
-          bgLesson="#CCE918"
-          route="DetailMataPelajaran"
-        />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('DetailMataPelajaran')}>
-        <CardMapelScreen
-          lessonName="Agama Islam"
-          bgLesson="#1DDC30"
-          route="DetailMataPelajaran"
-        />
-      </TouchableOpacity>
+      {mapel.map(item => (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DetailMataPelajaran')}
+          key={item.id}>
+          <CardMapelScreen lessonName={item.name} bgLesson="#1890FF" />
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };

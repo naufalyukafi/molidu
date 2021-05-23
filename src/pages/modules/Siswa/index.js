@@ -4,6 +4,7 @@ import ChatSiswaScreen from './Chat';
 import MataPelajaranDashboardScreen from './MataPelajaran';
 import DetailMataPelajaranScreen from './MataPelajaran/Detail';
 import UploadTugasScreen from './MataPelajaran/UploadTugas';
+import RoomStudentScreen from './MataPelajaran/RoomStudent';
 export {
   AbsensiSiswaScreen,
   FotoAbsensiScreen,
@@ -11,4 +12,5 @@ export {
   MataPelajaranDashboardScreen,
   DetailMataPelajaranScreen,
   UploadTugasScreen,
+  RoomStudentScreen,
 };

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Button, Text, Icon, Input} from '@ui-kitten/components';
 import auth from '@react-native-firebase/auth';
-
+import firestore from '@react-native-firebase/firestore';
 const Signup = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -32,10 +32,23 @@ const Signup = ({navigation}) => {
     auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        setEmail('');
-        setPassword('');
-        Alert.alert('Akun molidu berhasil dibuat');
-        navigation.navigate('HomeScreen');
+        firestore()
+          .collection('Users')
+          .add({
+            email,
+          })
+          .then(() => {
+            Alert.alert(
+              'Daftar Sukses',
+              'Selamat anda telah terdaftar di molidu',
+            );
+            setEmail('');
+            setPassword('');
+            navigation.navigate('HomeScreen');
+          })
+          .catch(error => {
+            console.error(error);
+          });
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
