@@ -11,16 +11,17 @@ const Intro = ({navigation}) => {
     try {
       // Get the users ID token
       const {idToken} = await GoogleSignin.signIn();
-
+      console.log('token: ', idToken)
       // Create a Google credential with the token
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
+      console.log('google credential: ', googleCredential)
       // Sign-in the user with the credential
-      await auth().signInWithCredential(googleCredential);
-      await navigation.navigate('HomeScreen');
+      // await auth().signInWithCredential(googleCredential);
+      // await navigation.navigate('HomeScreen');
       Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu');
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+        Alert.alert('Login gagal'+ error);
+        console.error(error)
     }
   }
 

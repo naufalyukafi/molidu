@@ -18,6 +18,7 @@ import {
 } from '@ui-kitten/components';
 import moment from 'moment';
 import firestore from '@react-native-firebase/firestore';
+import UploadTugas from './UploadTugas'
 
 const RoomStudent = ({route}) => {
   const {threadLesson} = route.params;
@@ -58,6 +59,8 @@ const RoomStudent = ({route}) => {
     // Stop listening for updates whenever the component unmounts
     return () => messagesListener();
   }, []);
+
+
   return (
     <TabView
       selectedIndex={selectedIndex}
@@ -93,13 +96,12 @@ const RoomStudent = ({route}) => {
         </Layout>
       </Tab>
       <Tab title="KUMPULKAN">
-        <Layout style={styles.tabContainer}>
-          <TouchableOpacity style={styles.fotoForm}>
+          <UploadTugas threadLesson={threadLesson} />
+          {/* <TouchableOpacity style={styles.fotoForm}>
             <Icon style={styles.icon} fill="#1D6EDC" name="cloud-upload" />
             <Text>Masukkan File Tugas Anda</Text>
           </TouchableOpacity>
-          <Button style={styles.submitBottom}>Kumpulkan</Button>
-        </Layout>
+          <Button style={styles.submitBottom}>Kumpulkan</Button> */}
       </Tab>
     </TabView>
   );

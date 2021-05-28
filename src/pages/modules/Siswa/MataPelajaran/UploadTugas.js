@@ -1,22 +1,78 @@
-import React from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native';
 import {Text, Button, Icon} from '@ui-kitten/components';
-const UploadIcon = props => (
-  <Icon {...props} style={styles.icon} fill="#1D6EDC" name="cloud-upload" />
-);
+import ImagePicker from 'react-native-image-crop-picker';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
-const UploadTugas = () => {
+const UploadTugas = (threadLesson) => {
+  const [photos, setPhotos] = useState(null);
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  const onAuthStateChanged = user => {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  };  
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const takePhotoFromGalery = () => {
+    ImagePicker.openPicker({
+      multiple: true
+    }).then(images => {
+      setPhotos(images.map(item => item.path));
+    });
+  }
+  const onSubmitAssigment = async () => {
+    firestore()
+      .collection('Assigment' + threadLesson.threadLesson.mapel)
+      .add({
+        email: user.email,
+        images: photos,
+        assigmentTime: firestore.Timestamp.fromDate(new Date()),
+      })  
+      .then(() => {
+        alert('Selamat anda telah melakukan upload tugas');
+        setPhotos(null);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.fotoForm}>
+      {photos === null ? 
+      <TouchableOpacity style={styles.fotoForm} onPress={takePhotoFromGalery}>
         <Icon style={styles.icon} fill="#1D6EDC" name="cloud-upload" />
         <Text>Masukkan File Anda</Text>
-      </TouchableOpacity>
-      {/* <Image
-        source={require('../../../../assets/images/dashboard-image.png')}
-        style={styles.image}
-      /> */}
-      <Button style={styles.submitBottom}>Kumpulkan</Button>
+      </TouchableOpacity> : (
+        <>
+        <Image
+          source={{uri: photos[0]}}
+          style={styles.image}
+        />
+        <View style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
+        {photos.length > 3 && ( alert('foto tidak boleh melebihi dari 3 gambar') + setPhotos(null) )}
+        {photos.map(item => (
+          <View>
+            <Image
+              source={{uri: item}}
+              style={styles.images}
+            />
+          </View>
+        ))} 
+        </View> 
+        </>
+      )
+      
+      }
+      <Button style={styles.submitBottom} onPress={onSubmitAssigment}>Kumpulkan</Button>
     </View>
   );
 };
@@ -24,7 +80,7 @@ const UploadTugas = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
@@ -37,6 +93,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20
   },
   submitBottom: {
     width: '100%',
@@ -49,6 +106,23 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    marginTop: 20,
+  },
+  images: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+    marginTop: 20,
+    marginBottom: 20
+  },
+  tab: {
+    height: 192,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

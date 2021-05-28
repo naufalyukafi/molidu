@@ -9,7 +9,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
-import {Button, Icon} from '@ui-kitten/components';
+import {Button, Icon, IndexPath, Layout, Popover, Select, SelectItem, Text} from '@ui-kitten/components';
 import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
@@ -24,6 +24,7 @@ import {
   CreateChatRoomScreen,
   NewLessonScreen,
   RoomLessonScreen,
+  SeeAssigmentScreen
 } from '../pages/modules/Guru';
 import ChatSiswa from '../pages/modules/Siswa/Chat';
 
@@ -31,18 +32,27 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Router = () => {
-  const [user, setUser] = useState({});
+  const [visible, setVisible] = React.useState(false);
 
+  const renderToggleButton = () => (
+    <Button
+      appearance="ghost"
+      accessoryLeft={MoreIcon}
+      onPress={() => setVisible(true)}
+    />
+  );
+  
   React.useEffect(() => {
     GoogleSignin.configure({
-      webClientId:
-        '109794889729-vgqf8vqoeivm6l46a5v3h4k27gclqmmn.apps.googleusercontent.com',
+      webClientId: '736070341526-qgs3l787oh7pfkgktcnrftaos948jk8m.apps.googleusercontent.com',
+      offlineAccess: true
     });
-    const userInfo = auth().currentUser;
-    setUser(userInfo);
   }, []);
   const StarIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="plus-circle" />
+  );
+  const MoreIcon = props => (
+    <Icon {...props} style={styles.icon} fill="#fff" name="more-vertical" />
   );
   return (
     <NavigationContainer>
@@ -116,9 +126,7 @@ const Router = () => {
             headerTitleAlign: 'center',
           }}
         />
-        {user.email === 'molidulearning@gmail.com' ? (
-          <>
-            <Stack.Screen
+        <Stack.Screen
               name="Grup"
               component={ChatSiswa}
               options={({navigation}) => ({
@@ -155,33 +163,7 @@ const Router = () => {
                 ),
               })}
             />
-          </>
-        ) : (
-          <>
-            <Stack.Screen
-              name="Grup"
-              component={ChatSiswa}
-              options={({navigation}) => ({
-                headerLeft: false,
-                headerTitle: 'Grup Kelas',
-                headerStyle: {backgroundColor: '#1890FF'},
-                headerTintColor: '#fff',
-                headerTitleAlign: 'center',
-              })}
-            />
-            <Stack.Screen
-              name="Lesson"
-              component={LessonScreen}
-              options={({navigation}) => ({
-                headerLeft: false,
-                headerTitle: 'Mata Pelajaran',
-                headerStyle: {backgroundColor: '#1890FF'},
-                headerTintColor: '#fff',
-                headerTitleAlign: 'center',
-              })}
-            />
-          </>
-        )}
+        
 
         <Stack.Screen
           name="NewGrup"
@@ -219,8 +201,32 @@ const Router = () => {
         <Stack.Screen
           name="RoomLesson"
           component={RoomLessonScreen}
-          options={({route}) => ({
+          options={({route, navigation}) => ({
             title: route.params.threadLesson.mapel,
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Popover 
+                anchor={renderToggleButton}
+                visible={visible}
+                // placement='left start'
+                onBackdropPress={() => setVisible(false)}
+              >
+                <Layout style={styles.content}>
+                  <Button appearance="ghost" onPress={() => navigation.navigate('SeeAssigment', {threadLesson: route})}>Lihat Hasil Tugas Siswa</Button>
+                  
+                </Layout>
+              </Popover>
+            ),
+          })}
+        
+        />
+        <Stack.Screen 
+          name="SeeAssigment"
+          component={SeeAssigmentScreen}
+          options={() => ({
+            title: 'Hasil Tugas Siswa',
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
@@ -296,5 +302,12 @@ const styles = StyleSheet.create({
   icon: {
     width: 35,
     height: 35,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 8,
+    backgroundColor: '#ADF1B4'
   },
 });

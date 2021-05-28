@@ -44,11 +44,12 @@ const Home = ({navigation}) => {
   }
 
   return (
-    <ScrollView>
-      <View style={styles.wrapper}>
-        <View style={styles.image}>
+    <ScrollView style={styles.wrapper}>
+      <View >
+        <View >
           <Image
             source={require('../../../../assets/images/dashboard-image.png')}
+            style={styles.image}
           />
         </View>
         <Text style={styles.welcome}>Selamat datang, {user.email}!</Text>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 20,
-    textAlign: 'center',
+    width: '100%',
   },
   welcome: {
     textAlign: 'center',
