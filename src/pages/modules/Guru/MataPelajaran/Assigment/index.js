@@ -10,6 +10,7 @@ const Assigment = ({route}) => {
   const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [isAnswer, setIsAnswer] = useState(0);
 
   useEffect(() => {
     const fetchAssigments = async () => {
@@ -44,49 +45,60 @@ const Assigment = ({route}) => {
   const renderItemIcon = (props) => (
     <Icon {...props} name='person'/>
   );
-  const renderAnswerImage = () => {
-      return (
-      <Button onPress={() => setVisible(true)}>Lihat Jawaban</Button>
-      )
-  }
   
   
   return (
     <View style={styles.wrapper}>
-        { loading ? <View style={{marginTop: '50%'}}> <Loading /> </View> : (
-          <List
+       <List
           data={answer}
           renderItem={({item}) => (
-              <>
+            <>
               <ListItem
                   key={item.id}
                   title={item.email}
                   accessoryLeft={renderItemIcon}
-                  accessoryRight={() => <Button onPress={() => setVisible(true)}>Lihat Jawaban</Button>}
+                  accessoryRight={() => <Button onPress={() => {
+                    setVisible(true)
+                    // setIsAnswer({item} => {item.id})
+                    setIsAnswer(item.id)
+                  }}>Lihat Jawaban</Button>}
               />
-               {visible === true && <ImageView
-                  images={[
-                      {
-                        uri:  item.images[0],
-                      },
-                      {
-                          uri: item.images[1],
-                      },
-                      {
-                          uri: item.images[2],
-                      }
-                    ]}
-                  imageIndex={0}
-                  visible={visible}
-                  onRequestClose={() => setVisible(false)}
-              />}
+              {(visible === true && isAnswer === item.id) && 
+              <>
+                {item.images.length === 1 ? 
+                <ImageView 
+                images={[
+                  {
+                    uri: item.images[0],
+                  }
+                ]}
+                imageIndex={0}
+                visible={visible}
+                onRequestClose={() => setVisible(false)}
+              />
+                :<ImageView 
+                images={[
+                  {
+                    uri: item.images[0],
+                  },
+                  {
+                    uri: item.images[1],
+                  },
+                  {
+                    uri: item.images[2],
+                  }
+                ]}
+                imageIndex={0}
+                visible={visible}
+                onRequestClose={() => setVisible(false)}
+              />
+              }
               </>
+              }
+            </>
           )}
-      />
-        ) }
-        
-       
-        
+        />
+
     </View>
     // </View>
   );
