@@ -27,6 +27,20 @@ const Home = ({navigation}) => {
       navigation.navigate('AbsensiSiswa');
     }
   };
+  const onGrup = () => {
+    if (user.email === 'molidulearning@gmail.com') {
+      navigation.navigate('GrupGuru');
+    } else {
+      navigation.navigate('GrupSiswa');
+    }
+  };
+  const onLesson = () => {
+    if (user.email === 'molidulearning@gmail.com') {
+      navigation.navigate('LessonGuru');
+    } else {
+      navigation.navigate('LessonSiswa');
+    }
+  };
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -57,12 +71,15 @@ const Home = ({navigation}) => {
         <Button style={styles.card} onPress={() => onAbsensi()}>
           Absensi Siswa
         </Button>
-        <Button style={styles.card} onPress={() => navigation.navigate('Grup')}>
+        <Button style={styles.card} onPress={() => onGrup()}>
           Grup Kelas
         </Button>
         <Button
           style={styles.card}
-          onPress={() => navigation.navigate('Lesson')}>
+          // onPress={() => navigation.navigate('Lesson')}
+          onPress={() => onLesson()}  
+        >
+          
           Mata Pelajaran
         </Button>
       </View>

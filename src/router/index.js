@@ -48,12 +48,17 @@ const Router = () => {
       offlineAccess: true
     });
   }, []);
+  
+  const LogOutIcon = props => (
+    <Icon {...props} style={styles.icon} fill="#fff" name="log-out" />
+  )
   const StarIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="plus-circle" />
   );
   const MoreIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="more-vertical" />
   );
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="IntroScreen">
@@ -84,13 +89,13 @@ const Router = () => {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
-          options={{
+          options={({navigation}) => ({
             headerTitle: 'Molidu Education',
             headerLeft: false,
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
-          }}
+          })}
         />
         <Stack.Screen
           name="AbsensiSiswa"
@@ -127,42 +132,72 @@ const Router = () => {
           }}
         />
         <Stack.Screen
-              name="Grup"
-              component={ChatSiswa}
-              options={({navigation}) => ({
-                headerLeft: false,
-                headerTitle: 'Grup Kelas',
-                headerStyle: {backgroundColor: '#1890FF'},
-                headerTintColor: '#fff',
-                headerTitleAlign: 'center',
-                headerRight: () => (
-                  <Button
-                    appearance="ghost"
-                    accessoryLeft={StarIcon}
-                    onPress={() => navigation.navigate('NewGrup')}
-                  />
-                ),
-              })}
-            />
-            <Stack.Screen
-              name="Lesson"
-              component={LessonScreen}
-              options={({navigation}) => ({
-                headerLeft: false,
-                headerTitle: 'Mata Pelajaran',
-                headerStyle: {backgroundColor: '#1890FF'},
-                headerTintColor: '#fff',
-                headerTitleAlign: 'center',
+          name="GrupGuru"
+          component={ChatSiswa}
+          options={({navigation}) => ({
+            headerLeft: false,
+            headerTitle: 'Grup Kelas',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Button
+                appearance="ghost"
+                accessoryLeft={StarIcon}
+                onPress={() => navigation.navigate('NewGrup')}
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="GrupSiswa"
+          component={ChatSiswa}
+          options={({navigation}) => ({
+            headerLeft: false,
+            headerTitle: 'Grup Kelas',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+        <Stack.Screen
+          name="LessonGuru"
+          component={LessonScreen}
+          options={({navigation}) => ({
+            headerLeft: false,
+            headerTitle: 'Mata Pelajaran',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
 
-                headerRight: () => (
-                  <Button
-                    appearance="ghost"
-                    accessoryLeft={StarIcon}
-                    onPress={() => navigation.navigate('NewLesson')}
-                  />
-                ),
-              })}
-            />
+            headerRight: () => (
+              <Button
+                appearance="ghost"
+                accessoryLeft={StarIcon}
+                onPress={() => navigation.navigate('NewLesson')}
+              />
+            ),
+          })}
+        />
+        <Stack.Screen
+          name="LessonSiswa"
+          component={LessonScreen}
+          options={({navigation}) => ({
+            headerLeft: false,
+            headerTitle: 'Mata Pelajaran',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+
+            headerRight: () => (
+              <Button
+                appearance="ghost"
+                accessoryLeft={StarIcon}
+                onPress={() => navigation.navigate('NewLesson')}
+              />
+            ),
+          })}
+        />
         
 
         <Stack.Screen
