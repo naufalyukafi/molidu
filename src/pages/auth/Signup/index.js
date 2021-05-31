@@ -51,12 +51,16 @@ const Signup = ({navigation}) => {
           });
       })
       .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          Alert.alert('alamat email ini sudah digunakan!');
-        }
         if (error.code === 'auth/invalid-email') {
-          Alert.alert('email salah, mohon koreksi kembali!');
+          Alert.alert('Email Anda salah', 'Sepertinya email yang anda masukan salah, mohon segera koreksi kembali!');
+        } else if(error.code === 'auth/user-not-found') {
+          Alert.alert('User tidak ditemukan', 'Sepertinya alamat email yang anda masukan tidak terdaftar di sistem, mohon koreksi kembali!')
+        } else if(error.code === 'auth/wrong-password') {
+          Alert.alert('Password Anda salah', 'Sepertinya passwod yang anda masukan salah, mohon segera koreksi kembali!')
+        } else {
+          Alert.alert(error.code);
         }
+        
       });
   };
 
@@ -103,7 +107,7 @@ const Signup = ({navigation}) => {
           style={styles.input}
         />
         <Button onPress={() => onDaftar()}>Daftar</Button>
-        <TouchableOpacity>
+        <TouchableOpacity style={{marginTop: 10}} onPress={() => navigation.navigate('LoginScreen')} >
           <Text> Have account? Login</Text>
         </TouchableOpacity>
       </View>
