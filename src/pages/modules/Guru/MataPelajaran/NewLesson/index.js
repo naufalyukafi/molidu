@@ -21,7 +21,7 @@ const NewLesson = ({navigation}) => {
             createdAt: new Date().getTime(),
             system: true,
           });
-          navigation.navigate('Lesson');
+          navigation.navigate('LessonGuru');
         });
     }
   };

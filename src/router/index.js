@@ -2,14 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
-import {Button, Icon, IndexPath, Layout, Popover, Select, SelectItem, Text} from '@ui-kitten/components';
+import {Button, Icon, IndexPath, Layout, Popover, Select, SelectItem, Text, OverflowMenu, MenuItem} from '@ui-kitten/components';
 import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
@@ -32,7 +33,8 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Router = () => {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
+  const [dataID, setDataID] = useState([]);
 
   const renderToggleButton = () => (
     <Button
@@ -58,6 +60,7 @@ const Router = () => {
   const MoreIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="more-vertical" />
   );
+
   
   return (
     <NavigationContainer>
@@ -188,14 +191,6 @@ const Router = () => {
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
-
-            headerRight: () => (
-              <Button
-                appearance="ghost"
-                accessoryLeft={StarIcon}
-                onPress={() => navigation.navigate('NewLesson')}
-              />
-            ),
           })}
         />
         
@@ -242,17 +237,54 @@ const Router = () => {
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
             headerRight: () => (
-              <Popover 
-                anchor={renderToggleButton}
-                visible={visible}
-                // placement='left start'
-                onBackdropPress={() => setVisible(false)}
-              >
-                <Layout style={styles.content}>
-                  <Button appearance="ghost" onPress={() => navigation.navigate('SeeAssigment', {threadLesson: route})}>Lihat Hasil Tugas Siswa</Button>
+              // <Popover 
+              //   anchor={renderToggleButton}
+              //   visible={visible}
+              //   // placement='left start'
+              //   onBackdropPress={() => setVisible(false)}
+              // >
+              //   <Layout style={styles.content}>
+              //     
                   
-                </Layout>
-              </Popover>
+              //   </Layout>
+              // </Popover>
+              <>
+                <View style={styles.buttonContainer}>
+                  <OverflowMenu
+                    anchor={renderToggleButton}
+                    visible={visible}
+                    placement='bottom'
+                    onBackdropPress={() => setVisible(false)}
+                    backdropStyle={styles.backdrop}
+                    >
+                    <MenuItem title='Hasil Tugas Siswa' onPress={() => {
+                        setVisible(false)
+                        navigation.navigate('SeeAssigment', {threadLesson: route})
+                      }
+                    } />
+                    <MenuItem title='Hapus Grup' onPress={() => {
+                      // alert(`${route.params.threadLesson._id}/Messages`)
+                      firestore()
+                      .collection('ThreadsLesson')
+                      .doc(route.params.threadLesson._id)
+                      .delete()   
+                      .then(() => {
+                        alert('Delete Sukses')
+                        navigation.navigate('LessonGuru')
+                      })
+                      .catch((error) => alert(error))
+                      
+                      
+                      // .doc('sPIDDLiIZogzdKUqtguB').delete()
+                      // .then(() => {
+                      //   alert('Semua pesan berhasil dihapus');
+                      //   navigation.navigate('LessonGuru')
+                      // })
+                      // .catch((error) => alert(error));
+                    }} />
+                  </OverflowMenu>
+                </View>
+              </>
             ),
           })}
         
@@ -345,4 +377,14 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: '#ADF1B4'
   },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 80,
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
 });
+
+//sudah absen gak bisa absen lagi

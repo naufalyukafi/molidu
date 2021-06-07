@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import {Divider, List, ListItem, Icon} from '@ui-kitten/components';
+import {View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {Divider, List, ListItem, Icon, Text} from '@ui-kitten/components';
 import {
   GiftedChat,
   Send,
@@ -113,6 +113,7 @@ const Chat = ({route}) => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   };
+
   useEffect(() => {
     const messagesListener = firestore()
       .collection('Threads')
@@ -155,7 +156,6 @@ const Chat = ({route}) => {
     <View style={styles.wrapper}>
       <GiftedChat
         messages={messages}
-        isTyping={true}
         onSend={newMessage => handleSend(newMessage)}
         user={{_id: user.uid}}
         placeholder="Ketikan pesan anda ..."
@@ -167,6 +167,7 @@ const Chat = ({route}) => {
         scrollToBottom
         scrollToBottomComponent={scrollToBottomComponent}
         renderUsernameOnMessage={true}
+        
       />
     </View>
   );

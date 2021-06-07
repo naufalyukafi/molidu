@@ -23,7 +23,7 @@ const CreateRoom = ({navigation}) => {
             createdAt: new Date().getTime(),
             system: true,
           });
-          navigation.navigate('Grup');
+          navigation.navigate('GrupGuru');
         });
     }
   };

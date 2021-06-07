@@ -7,7 +7,7 @@ import Loading from '../../../../../components/Loading';
 
 const Assigment = ({route}) => {
   const {threadLesson} = route.params;
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState([]);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [isAnswer, setIsAnswer] = useState(0);
@@ -45,7 +45,10 @@ const Assigment = ({route}) => {
   const renderItemIcon = (props) => (
     <Icon {...props} name='person'/>
   );
-  
+
+  if(answer.length === 0) {
+    return loading ? <Loading /> : <Text style={{textAlign: 'center', marginTop: 20}}>Hasil Tugas Siswa Masih kosong</Text>
+  }  
   
   return (
     <View style={styles.wrapper}>
