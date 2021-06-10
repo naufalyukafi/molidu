@@ -1,16 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 import {
   GoogleSignin,
-  statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
-import {Button, Icon, IndexPath, Layout, Popover, Select, SelectItem, Text, OverflowMenu, MenuItem} from '@ui-kitten/components';
+import {Button, Icon, OverflowMenu, MenuItem} from '@ui-kitten/components';
+import SplashScreen from '../pages/modules/SplashScreen'
 import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
@@ -29,12 +27,10 @@ import {
 } from '../pages/modules/Guru';
 import ChatSiswa from '../pages/modules/Siswa/Chat';
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Router = () => {
   const [visible, setVisible] = useState(false);
-  const [dataID, setDataID] = useState([]);
 
   const renderToggleButton = () => (
     <Button
@@ -64,7 +60,15 @@ const Router = () => {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="IntroScreen">
+      <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{
+            headerTitle: false,
+            headerTransparent: true,
+          }}
+        />
         <Stack.Screen
           name="IntroScreen"
           component={IntroScreen}
@@ -309,26 +313,6 @@ const Router = () => {
             headerTitleAlign: 'center',
           })}
         />
-        {/* <Stack.Screen
-          name="DetailMataPelajaran"
-          component={DetailMataPelajaranScreen}
-          options={{
-            headerTitle: 'Mata Pelajaran',
-            headerStyle: {backgroundColor: '#1890FF'},
-            headerTintColor: '#fff',
-            headerTitleAlign: 'center',
-          }}
-        /> */}
-        {/* <Stack.Screen
-          name="ChatGuru"
-          component={ChatMateriGuruScreen}
-          options={{
-            headerTitle: 'Materi',
-            headerStyle: {backgroundColor: '#1890FF'},
-            headerTintColor: '#fff',
-            headerTitleAlign: 'center',
-          }}
-        /> */}
         <Stack.Screen
           name="Chat Materi"
           component={DetailMataPelajaranScreen}
@@ -386,5 +370,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
-
-//sudah absen gak bisa absen lagi
