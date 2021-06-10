@@ -42,11 +42,6 @@ const RoomLesson = ({route}) => {
     });
   };
 
-  // helper method that is sends a message
-  // function handleSend(newMessage = []) {
-  //   setMessages(GiftedChat.append(messages, newMessage));
-  // }
-
   async function handleSend(messages) {
     const text = messages[0].text;
     firestore()

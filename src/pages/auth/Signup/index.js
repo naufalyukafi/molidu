@@ -81,13 +81,6 @@ const Signup = ({navigation}) => {
         style={styles.image}
       />
       <View style={styles.bottom}>
-        {/* <Input
-          value={username}
-          label="Nama"
-          placeholder="Masukkan nama anda"
-          onChangeText={nextValue => setUsername(nextValue)}
-          style={styles.input}
-        /> */}
         <Input
           value={email}
           label="Email"

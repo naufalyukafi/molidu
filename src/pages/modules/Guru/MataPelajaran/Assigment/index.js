@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, Image  } from 'react-native';
-import {Text, Button, Icon, List, ListItem, Divider, Avatar} from '@ui-kitten/components';
+import {View, StyleSheet} from 'react-native';
+import {Text, Button, Icon, List, ListItem} from '@ui-kitten/components';
 import firestore from '@react-native-firebase/firestore';
 import ImageView from 'react-native-image-viewing';
 import Loading from '../../../../../components/Loading';
@@ -62,7 +62,6 @@ const Assigment = ({route}) => {
                   accessoryLeft={renderItemIcon}
                   accessoryRight={() => <Button onPress={() => {
                     setVisible(true)
-                    // setIsAnswer({item} => {item.id})
                     setIsAnswer(item.id)
                   }}>Lihat Jawaban</Button>}
               />

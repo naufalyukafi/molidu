@@ -76,7 +76,6 @@ const Home = ({navigation}) => {
         </Button>
         <Button
           style={styles.card}
-          // onPress={() => navigation.navigate('Lesson')}
           onPress={() => onLesson()}  
         >
           

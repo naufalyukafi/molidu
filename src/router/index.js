@@ -47,9 +47,6 @@ const Router = () => {
     });
   }, []);
   
-  const LogOutIcon = props => (
-    <Icon {...props} style={styles.icon} fill="#fff" name="log-out" />
-  )
   const StarIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="plus-circle" />
   );
@@ -241,17 +238,6 @@ const Router = () => {
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
             headerRight: () => (
-              // <Popover 
-              //   anchor={renderToggleButton}
-              //   visible={visible}
-              //   // placement='left start'
-              //   onBackdropPress={() => setVisible(false)}
-              // >
-              //   <Layout style={styles.content}>
-              //     
-                  
-              //   </Layout>
-              // </Popover>
               <>
                 <View style={styles.buttonContainer}>
                   <OverflowMenu
@@ -267,7 +253,6 @@ const Router = () => {
                       }
                     } />
                     <MenuItem title='Hapus Grup' onPress={() => {
-                      // alert(`${route.params.threadLesson._id}/Messages`)
                       firestore()
                       .collection('ThreadsLesson')
                       .doc(route.params.threadLesson._id)
@@ -277,14 +262,6 @@ const Router = () => {
                         navigation.navigate('LessonGuru')
                       })
                       .catch((error) => alert(error))
-                      
-                      
-                      // .doc('sPIDDLiIZogzdKUqtguB').delete()
-                      // .then(() => {
-                      //   alert('Semua pesan berhasil dihapus');
-                      //   navigation.navigate('LessonGuru')
-                      // })
-                      // .catch((error) => alert(error));
                     }} />
                   </OverflowMenu>
                 </View>

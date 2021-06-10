@@ -39,7 +39,6 @@ const Intro = ({navigation}) => {
         source={require('../../../assets/images/icon-image.png')}
         style={styles.image}
       />
-      {/* <View style={{marginBottom: 40}} /> */}
       <View style={styles.bottom}>
         <Button onPress={() => navigation.navigate('LoginScreen')}>
           Masuk
