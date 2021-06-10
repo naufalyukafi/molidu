@@ -11,7 +11,6 @@ import {Button, Text, Icon, Input} from '@ui-kitten/components';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 const Signup = ({navigation}) => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
