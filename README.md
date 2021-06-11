@@ -1,10 +1,7 @@
 # Molidu - Mobile Learning and Education for Elementary School
 Elementary school is still maximizing media antother chat platform in conducting teaching and learning media directly courageous even though it is still not effective because it is either absent, collection of assignments, and discussions carried out in one place. By that's why we provide Molidu as a solution to this problem.
-<div style="display: 'flex';">
-  <img src="https://i.ibb.co/qd4xpR0/Screenshot-1623323182.png" alt="image" widtg="100px" height="500px" />
-  <img src="https://i.ibb.co/hY9xVbf/Screenshot-1623029730.png" alt="image" widtg="100px" height="500px" />
-  <img src="https://i.ibb.co/92JcTmZ/Screenshot-1623029747.png" alt="image" widtg="100px" height="500px" />
-</div>
+
+[![Release-Poster.png](https://i.postimg.cc/c18S1Dwz/Release-Poster-800height.png)](https://postimg.cc/QVsP0J6g)
 
 ## Features - Student
 <ul>
