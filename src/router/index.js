@@ -7,6 +7,16 @@ import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
+// admin
+import {LoginAdmin} from '../pages/admin/auth'
+import {
+  HomeAdmin, 
+  AdminGuru, 
+  AdminSiswa, 
+  NewStudent, 
+  EditStudent,
+  NewTeacher,
+  EditTeacher } from '../pages/admin/modules'
 import {Button, Icon, OverflowMenu, MenuItem} from '@ui-kitten/components';
 import SplashScreen from '../pages/modules/SplashScreen'
 import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
@@ -320,6 +330,99 @@ const Router = () => {
             headerTitleAlign: 'center',
           }}
         />
+
+        {/* admin */}
+        <Stack.Screen 
+          name="LoginAdmin"
+          component={LoginAdmin}
+          options={{
+            headerTitle: 'Login Admin',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="HomeAdmin"
+          component={HomeAdmin}
+          options={{
+            headerTitle: 'Home Admin',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="AdminGuru"
+          component={AdminGuru}
+          options={{
+            headerTitle: 'Admin Guru',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+
+        <Stack.Screen 
+          name="NewTeacher"
+          component={NewTeacher}
+          options={{
+            headerTitle: 'Tambah Guru',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="EditTeacher"
+          component={EditTeacher}
+          options={{
+            headerTitle: 'Edit Guru',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+
+        <Stack.Screen 
+          name="AdminSiswa"
+          component={AdminSiswa}
+          options={{
+            headerTitle: 'Admin Siswa',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="NewStudent"
+          component={NewStudent}
+          options={{
+            headerTitle: 'Tambah Siswa',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="EditStudent"
+          component={EditStudent}
+          options={{
+            headerTitle: 'Edit Siswa',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,15 +3,13 @@ import {
   View,
   StyleSheet,
   Image,
-  TouchableWithoutFeedback,
-  Alert,
   TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {Button, Text, Icon, Input} from '@ui-kitten/components';
-import auth from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 
-const Login = ({navigation}) => {
-  const [username, setUsername] = useState('');
+const LoginAdmin = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = React.useState(true);
@@ -27,26 +25,13 @@ const Login = ({navigation}) => {
   );
 
   const onLogin = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        setEmail('');
-        setPassword('');
-        Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu');
-        navigation.navigate('HomeScreen');
-      })
-      .catch(error => {
-        if (error.code === 'auth/invalid-email') {
-          Alert.alert('Email Anda salah', 'Sepertinya email yang anda masukan salah, mohon segera koreksi kembali!');
-        } else if(error.code === 'auth/user-not-found') {
-          Alert.alert('User tidak ditemukan', 'Sepertinya alamat email yang anda masukan tidak terdaftar di sistem, mohon koreksi kembali!')
-        } else if(error.code === 'auth/wrong-password') {
-          Alert.alert('Password Anda salah', 'Sepertinya passwod yang anda masukan salah, mohon segera koreksi kembali!')
-        } else {
-          Alert.alert(error.code);
-        }
-      });
+    if(email === "adminmolidu@gmail.com" && password === "admin") {
+      navigation.navigate('HomeAdmin');
+    } else {
+      alert('Anda belum terdaftar sebagai admin')
+    }
   };
+
 
   return (
     <View style={styles.container}>
@@ -61,7 +46,7 @@ const Login = ({navigation}) => {
         Molidu Education
       </Text>
       <Image
-        source={require('../../../assets/images/login-icon.png')}
+        source={require('../../../../assets/images/login-icon.png')}
         style={styles.image}
       />
       <View style={styles.bottom}>
@@ -84,10 +69,7 @@ const Login = ({navigation}) => {
           style={styles.input}
         />
         <Button onPress={() => onLogin()}>Masuk</Button>
-        <View style={styles.footerLogin}>
-          <TouchableOpacity onPress={() => alert('Silahkan reset email anda dengan mengirim pesan ke email: molidulearning@gmail.com')}><Text style={styles.textForgot}>Lupa password?</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('LoginAdmin')}><Text>Login Admin</Text></TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => alert('Silahkan reset email anda dengan mengirim pesan ke email: molidulearning@gmail.com')}><Text style={styles.textForgot}>Lupa password?</Text></TouchableOpacity>
       </View>
     </View>
   );
@@ -116,11 +98,7 @@ const styles = StyleSheet.create({
   textForgot: {
     marginTop: 10,
   },
-  footerLogin: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
 });
 
-export default Login;
+
+export default LoginAdmin;
