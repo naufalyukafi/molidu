@@ -25,7 +25,7 @@ const data = [
   ["MSFT", "6", "$129.89", "$779.34", "$126.18", "$757.08"]
 ];
 
-const dataGuru = data.map((item) => [...item, <Button>etre</Button>])
+// const dataGuru = data.map((item) => )
 
 // Indices (columns) to include on a small screen
 export const smallScreenIndices = [0, 1, 5];
