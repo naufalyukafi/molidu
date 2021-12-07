@@ -5,6 +5,13 @@ import TugasGuruScreen from './MataPelajaran/Tugas';
 import NewLessonScreen from './MataPelajaran/NewLesson';
 import RoomLessonScreen from './MataPelajaran/RoomLesson';
 import SeeAssigmentScreen from './MataPelajaran/Assigment';
+import GemarMembacaGuruScreen from './GemarMembaca/Home';
+import ListBookGuruScreen from './GemarMembaca/ListBook';
+import UploadBookGuruScreen from './GemarMembaca/Upload';
+import DetailBookTeacherScreen from './GemarMembaca/ListBook/detailBookTeacher';
+import ListResumeTeacherScreen from './GemarMembaca/ResumeStudents/ListResume';
+import DetailResumeTeacherScreen from './GemarMembaca/ResumeStudents/DetailResume';
+
 export {
   AbsensiGuruScreen,
   ChatGuruScreen,
@@ -12,5 +19,11 @@ export {
   TugasGuruScreen,
   NewLessonScreen,
   RoomLessonScreen,
-  SeeAssigmentScreen
+  SeeAssigmentScreen,
+  GemarMembacaGuruScreen,
+  ListBookGuruScreen,
+  UploadBookGuruScreen,
+  DetailBookTeacherScreen,
+  ListResumeTeacherScreen,
+  DetailResumeTeacherScreen
 };

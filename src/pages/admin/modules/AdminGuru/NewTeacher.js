@@ -21,7 +21,7 @@ const NewTeacher = ({navigation}) => {
     setSecureTextEntry(!secureTextEntry);
   };
 
-  const renderIcon = props => (
+  const renderIcon = props => (                            
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>

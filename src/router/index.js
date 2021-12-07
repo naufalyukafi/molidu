@@ -19,13 +19,14 @@ import {
   EditTeacher } from '../pages/admin/modules'
 import {Button, Icon, OverflowMenu, MenuItem} from '@ui-kitten/components';
 import SplashScreen from '../pages/modules/SplashScreen'
-import {HomeScreen, RoomScreen, LessonScreen} from '../pages/modules';
+import {HomeScreen, RoomScreen, LessonScreen, GemarMembacaScreen} from '../pages/modules';
 import {
   AbsensiSiswaScreen,
   FotoAbsensiScreen,
   DetailMataPelajaranScreen,
   UploadTugasScreen,
   RoomStudentScreen,
+  UploadResumeScreen,
 } from '../pages/modules/Siswa';
 import {
   AbsensiGuruScreen,
@@ -33,9 +34,15 @@ import {
   CreateChatRoomScreen,
   NewLessonScreen,
   RoomLessonScreen,
-  SeeAssigmentScreen
+  SeeAssigmentScreen,
+  GemarMembacaGuruScreen,
+  ListBookGuruScreen,
+  DetailBookTeacherScreen,
+  ListResumeTeacherScreen,
+  DetailResumeTeacherScreen
 } from '../pages/modules/Guru';
 import ChatSiswa from '../pages/modules/Siswa/Chat';
+import UploadBookTeacher from '../pages/modules/Guru/GemarMembaca/Upload';
 
 const Stack = createStackNavigator();
 
@@ -221,7 +228,7 @@ const Router = () => {
           name="Room"
           component={RoomScreen}
           options={({route}) => ({
-            title: route.params.thread.name,
+            title: route.params.item.name,
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',
@@ -330,6 +337,102 @@ const Router = () => {
             headerTitleAlign: 'center',
           }}
         />
+
+        <Stack.Screen 
+          name="GemarMembaca"
+          component={GemarMembacaScreen}
+          options={{
+            headerTitle: 'Gemar Membaca',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="UploadBook"
+          component={UploadBookTeacher}
+          options={{
+            headerTitle: 'Tambah Buku',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          }}
+        />
+
+        <Stack.Screen 
+          name="DetailBook"
+          component={DetailBookTeacherScreen}
+          options={({route}) => ({
+            title: route.params.dataBook.name,
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+
+        <Stack.Screen
+          name="ListBookTeacher"
+          component={ListBookGuruScreen}
+          options={({navigation}) => ({
+            headerTitle: 'Daftar Buku',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+
+            headerRight: () => (
+              <Button
+                appearance="ghost"
+                accessoryLeft={StarIcon}
+                onPress={() => navigation.navigate('UploadBook')}
+              />
+            ),
+          })}
+        />
+
+        <Stack.Screen
+          name="ListBookStudent"
+          component={ListBookGuruScreen}
+          options={({navigation}) => ({
+            headerTitle: 'Daftar Buku',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+
+        <Stack.Screen
+          name="UploadResume"
+          component={UploadResumeScreen}
+          options={({navigation}) => ({
+            headerTitle: 'Kumpulkan Resume',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+
+        <Stack.Screen
+          name="ListResume"
+          component={ListResumeTeacherScreen}
+          options={({navigation}) => ({
+            headerTitle: 'Daftar Resume',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        />
+
+        <Stack.Screen
+          name="DetailResume"
+          component={DetailResumeTeacherScreen}
+          options={({navigation}) => ({
+            headerTitle: 'Detail Resume',
+            headerStyle: {backgroundColor: '#1890FF'},
+            headerTintColor: '#fff',
+            headerTitleAlign: 'center',
+          })}
+        /> 
 
         {/* admin */}
         <Stack.Screen 

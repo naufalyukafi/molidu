@@ -18,7 +18,7 @@ const Intro = ({navigation}) => {
       await navigation.navigate('HomeScreen');
       Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu');
     } catch (error) {
-        Alert.alert('Login gagal'+ error);
+        Alert.alert('Login gagal '+ error);
     }
   }
 

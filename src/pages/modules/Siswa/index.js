@@ -5,6 +5,7 @@ import MataPelajaranDashboardScreen from './MataPelajaran';
 import DetailMataPelajaranScreen from './MataPelajaran/Detail';
 import UploadTugasScreen from './MataPelajaran/UploadTugas';
 import RoomStudentScreen from './MataPelajaran/RoomStudent';
+import UploadResumeScreen from './GemarMembaca/Resume'
 export {
   AbsensiSiswaScreen,
   FotoAbsensiScreen,
@@ -13,4 +14,5 @@ export {
   DetailMataPelajaranScreen,
   UploadTugasScreen,
   RoomStudentScreen,
+  UploadResumeScreen
 };
