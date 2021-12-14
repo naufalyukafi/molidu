@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Alert, StyleSheet, Image, ScrollView} from 'react-native';
+import {View, Alert, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {Text, Button} from '@ui-kitten/components';
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const Home = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -17,8 +17,11 @@ const Home = ({navigation}) => {
   const onLogOut = () => {
     auth()
       .signOut()
-      .then(() => Alert.alert('Anda berhasil keluar akun!'));
-    navigation.navigate('IntroScreen');
+      .then(async () => {
+        await AsyncStorage.removeItem('user')
+        Alert.alert('Keluar', 'Anda berhasil keluar akun!')
+        navigation.navigate('LoginScreen');
+      });
   };
   const onAbsensi = () => {
     if (user.email === 'yukafit@gmail.com') {
@@ -42,7 +45,23 @@ const Home = ({navigation}) => {
     }
   };
 
-  useEffect(() => {
+  const getData = async (key) => {
+    // get Data from Storage
+    try {
+      const data = await AsyncStorage.getItem(key);
+      if (data !== null) {
+        console.log(data);
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(async () => {
+    await getData('user')
+    .then(data => console.log(data))
+    .catch(err => console.log(err))
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
@@ -51,8 +70,10 @@ const Home = ({navigation}) => {
 
   if (!user) {
     return (
-      <View>
-        <Text>Login</Text>
+      <View style={styles.isNotLogin}>
+        <Button onPress={() => navigation.navigate('LoginScreen')}>
+          Login
+        </Button>
       </View>
     );
   }
@@ -67,27 +88,37 @@ const Home = ({navigation}) => {
           />
         </View>
         <Text style={styles.welcome}>Selamat datang, {user.email}!</Text>
-
-        <Button style={styles.card} onPress={() => onAbsensi()}>
-          Absensi Siswa
-        </Button>
-        <Button style={styles.card} onPress={() => onGrup()}>
-          Grup Kelas
-        </Button>
-        <Button
-          style={styles.card}
-          onPress={() => onLesson()}  
-        >
-          
-          Mata Pelajaran
-        </Button>
-        <Button
-          style={styles.card}
-          onPress={() => navigation.navigate('GemarMembaca')}  
-        >
-          
-          Gemar Membaca
-        </Button>
+        <View style={styles.wrapperMenus}>
+          <TouchableOpacity style={styles.box} onPress={() => onAbsensi()}>
+              <Image
+                  source={require('../../../../assets/images/absensi.png')}
+                  style={styles.icon}
+              />
+              <Text>Absensi</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.box} onPress={() => onLesson()}>
+              <Image
+                  source={require('../../../../assets/images/matapelajaran.png')}
+                  style={styles.icon}
+              />
+              <Text>Mata Pelajaran</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.box} onPress={() => onGrup()}>
+              <Image
+                  source={require('../../../../assets/images/groupkelas.png')}
+                  style={styles.icon}
+              />
+              <Text>Grup Kelas</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.box} onPress={() => navigation.navigate('GemarMembaca')} >
+              <Image
+                  source={require('../../../../assets/images/gemarmembaca.png')}
+                  style={styles.icon}
+              />
+              <Text>Gemar Membaca</Text>
+          </TouchableOpacity>
+        </View>
+        <Button style={styles.button} onPress={onLogOut}>Keluar</Button>
       </View>
     </ScrollView>
   );
@@ -101,21 +132,42 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   image: {
-    marginTop: 20,
     width: '100%',
+  },
+  icon: {
+    width: '75%'
+  },
+  wrapperMenus: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginTop: 20
+  },
+  box: {
+    width: '46%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    margin: 5,
+    paddingBottom: 5,
+    paddingTop: 5,
+    borderWidth: 1
+  },
+  button: {
+    marginTop: 10,
+    marginBottom: 20
   },
   welcome: {
     textAlign: 'center',
     marginTop: 20,
-    marginBottom: 10,
   },
-  card: {
-    paddingTop: 30,
-    paddingBottom: 30,
-    marginTop: 10,
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
-  },
+  isNotLogin: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default Home;

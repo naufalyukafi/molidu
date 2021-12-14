@@ -24,7 +24,14 @@ const Intro = ({navigation}) => {
 
   return (
     <View style={styles.wrapper}>
-      <Text
+      <Image
+        source={require('../../../assets/images/logo.png')}
+        style={styles.logo}
+      />
+      <Button status='basic' style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+        Masuk
+      </Button>
+      {/* <Text
         style={{
           textAlign: 'center',
           color: '#E5E1E1',
@@ -58,7 +65,7 @@ const Intro = ({navigation}) => {
           <Text style={styles.span}> Ketentuan Layanan</Text> dan{' '}
           <Text style={styles.span}>Kebijakan Privasi</Text>
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -68,36 +75,49 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1890FF',
     alignItems: 'center',
-  },
-  image: {
-    marginBottom: 40,
-  },
-  bottom: {
-    flex: 3,
-    justifyContent: 'center',
-    alignContent: 'center',
-    backgroundColor: '#fff',
     paddingLeft: 20,
     paddingRight: 20,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    justifyContent: "center",
+    alignItems: 'center'
+  },
+  button: {
+    // backgroundColor: '#FFF',
+    color: '#1890FF',
+    width: '100%',
+    marginTop: 15
+  },
+  image: {
     width: '100%',
   },
-  textOr: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  btnGoogle: {
-    backgroundColor: '#4367B2',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  span: {
-    color: '#41A4FF',
-    fontWeight: 'bold',
-  },
+  logo: {
+    width: '100%',
+  }
+  // bottom: {
+  //   flex: 3,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   backgroundColor: '#fff',
+  //   paddingLeft: 20,
+  //   paddingRight: 20,
+  //   borderTopLeftRadius: 25,
+  //   borderTopRightRadius: 25,
+  //   width: '100%',
+  // },
+  // textOr: {
+  //   textAlign: 'center',
+  //   fontWeight: 'bold',
+  //   marginTop: 5,
+  //   marginBottom: 5,
+  // },
+  // btnGoogle: {
+  //   backgroundColor: '#4367B2',
+  //   marginTop: 10,
+  //   marginBottom: 10,
+  // },
+  // span: {
+  //   color: '#41A4FF',
+  //   fontWeight: 'bold',
+  // },
 });
 
 export default Intro;

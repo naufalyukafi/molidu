@@ -6,6 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
 // admin
 import {LoginAdmin} from '../pages/admin/auth'
@@ -48,7 +49,7 @@ const Stack = createStackNavigator();
 
 const Router = () => {
   const [visible, setVisible] = useState(false);
-
+  const [currentUser, setCurrentUser] = useState([])
   const renderToggleButton = () => (
     <Button
       appearance="ghost"
@@ -56,8 +57,24 @@ const Router = () => {
       onPress={() => setVisible(true)}
     />
   );
+
+  const getData = async (key) => {
+    // get Data from Storage
+    try {
+      const data = await AsyncStorage.getItem(key);
+      if (data !== null) {
+        console.log(data);
+        return data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
-  React.useEffect(() => {
+  React.useEffect(async () => {
+    await getData('user')
+      .then(data => setCurrentUser(data))
+      .catch(err => console.log(err))
     GoogleSignin.configure({
       webClientId: '736070341526-qgs3l787oh7pfkgktcnrftaos948jk8m.apps.googleusercontent.com',
       offlineAccess: true
@@ -70,43 +87,49 @@ const Router = () => {
   const MoreIcon = props => (
     <Icon {...props} style={styles.icon} fill="#fff" name="more-vertical" />
   );
-
   
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-          options={{
-            headerTitle: false,
-            headerTransparent: true,
-          }}
-        />
-        <Stack.Screen
-          name="IntroScreen"
-          component={IntroScreen}
-          options={{
-            headerTitle: false,
-            headerTransparent: true,
-          }}
-        />
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{
-            headerTitle: false,
-            headerTransparent: true,
-            headerLeft: false,
-          }}
-        />
-        <Stack.Screen
-          name="SignupScreen"
-          component={SignupScreen}
-          options={{
-            headerTitle: 'Daftar Akun',
-          }}
-        />
+
+        {
+          currentUser.length > 0 && 
+          <>
+                  <Stack.Screen
+                    name="SplashScreen"
+                    component={SplashScreen}
+                    options={{
+                      headerTitle: false,
+                      headerTransparent: true,
+                    }}
+                  />
+                   <Stack.Screen
+                      name="IntroScreen"
+                      component={IntroScreen}
+                      options={{
+                        headerTitle: false,
+                        headerTransparent: true,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="LoginScreen"
+                      component={LoginScreen}
+                      options={{
+                        headerTitle: false,
+                        headerTransparent: true,
+                        headerLeft: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="SignupScreen"
+                      component={SignupScreen}
+                      options={{
+                        headerTitle: 'Daftar Akun',
+                      }}
+                    />
+          </>
+        }
+       
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}

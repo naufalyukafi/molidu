@@ -50,20 +50,23 @@ const UploadBookTeacher = ({navigation}) => {
     });
   }
 
-  const onSubmitBook = () => {
-      firestore()
+  const onSubmitBook = async () => {
+      await firestore()
         .collection('books')
         .add({
-          name,
-          description,
-          imageBook,
-          pdfBook,
+          name: name,
+          description: description,
+          imageBook: imageBook,
+          pdfBook: pdfBook,
           createdAt: new Date().getTime(),
         })
-        .then(() => {
-          Alert('Sukes Tambah Buku', 'Anda telah berhasil menambahkan buku')
-          navigation.navigate('ListBookTeacher');
-        });
+        navigation.navigate('ListBookTeacher');
+        // .then(() => {
+        //   Alert('Sukes Tambah Buku', 'Anda telah berhasil menambahkan buku')
+          
+        // }).catch((err) => {
+        //   Alert('Error', 'Error: ', err)
+        // })
   };
   
   return (
@@ -112,7 +115,8 @@ const UploadBookTeacher = ({navigation}) => {
           </>
         }
         {((name != "") && (description != "") && (imageBook != "") && (pdfBook != "")) ?
-        <Button onPress={onSubmitBook}>Tambah Buku</Button> : <Button disabled>Tambah Buku</Button> }
+        <Button onPress={() => onSubmitBook()}>Tambah Buku</Button> : 
+        <Button disabled>Tambah Buku</Button> }
       </View>
     </View>
   );

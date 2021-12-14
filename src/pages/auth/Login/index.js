@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Button, Text, Icon, Input} from '@ui-kitten/components';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -26,12 +27,17 @@ const Login = ({navigation}) => {
     </TouchableWithoutFeedback>
   );
 
-  const onLogin = () => {
+  const onLogin = async () => {
+    const data = [{email, password}]
+    // const dataSave = await AsyncStorage.setItem('user', JSON.stringify(data))
+    // console.log(dataSave)
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((data) => {
         setEmail('');
         setPassword('');
+        // console.log
+        AsyncStorage.setItem('user', JSON.stringify(data.user))
         Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu');
         navigation.navigate('HomeScreen');
       })
@@ -47,6 +53,10 @@ const Login = ({navigation}) => {
         }
       });
   };
+
+  const value = AsyncStorage.getItem('user');
+
+  console.log(value)
 
   return (
     <View style={styles.container}>

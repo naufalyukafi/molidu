@@ -13,7 +13,7 @@ const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.wrapper}>
         <Image
-        source={require('../../assets/images/splahs-screen.png')}
+        source={require('../../assets/images/logo.png')}
         style={styles.image}
         />
     </View>
@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: '#1890FF',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 20,
+    padding: 20
   },
   image: {
       width: '100%',
-      height: '100%'
   }
 });
 
