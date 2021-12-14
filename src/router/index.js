@@ -63,7 +63,8 @@ const Router = () => {
     try {
       const data = await AsyncStorage.getItem(key);
       if (data !== null) {
-        console.log(data);
+        // setCurrentUser(data)
+        console.log("current user data", data);
         return data;
       }
     } catch (error) {
@@ -88,12 +89,13 @@ const Router = () => {
     <Icon {...props} style={styles.icon} fill="#fff" name="more-vertical" />
   );
   
+  // console.log('current user ', currentUser)
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
 
         {
-          currentUser.length > 0 && 
+          // currentUser === undefined && 
           <>
                   <Stack.Screen
                     name="SplashScreen"
@@ -101,6 +103,7 @@ const Router = () => {
                     options={{
                       headerTitle: false,
                       headerTransparent: true,
+                      headerLeft: false,
                     }}
                   />
                    <Stack.Screen
@@ -109,6 +112,7 @@ const Router = () => {
                       options={{
                         headerTitle: false,
                         headerTransparent: true,
+                        headerLeft: false,
                       }}
                     />
                     <Stack.Screen

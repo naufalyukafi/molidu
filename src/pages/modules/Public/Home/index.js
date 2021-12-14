@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const Home = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = React.useState();
+  const [user, setUser] = React.useState([]);
 
   // Handle user state changes
   const onAuthStateChanged = user => {
@@ -14,14 +14,14 @@ const Home = ({navigation}) => {
     if (initializing) setInitializing(false);
   };
 
-  const onLogOut = () => {
-    auth()
-      .signOut()
-      .then(async () => {
-        await AsyncStorage.removeItem('user')
-        Alert.alert('Keluar', 'Anda berhasil keluar akun!')
-        navigation.navigate('LoginScreen');
-      });
+  const onLogOut = async () => {
+    try {
+        await auth().signOut();
+        await AsyncStorage.clear()
+        navigation.navigate('IntroScreen');
+    } catch (e) {
+        console.log(e);
+    }
   };
   const onAbsensi = () => {
     if (user.email === 'yukafit@gmail.com') {
@@ -71,7 +71,7 @@ const Home = ({navigation}) => {
   if (!user) {
     return (
       <View style={styles.isNotLogin}>
-        <Button onPress={() => navigation.navigate('LoginScreen')}>
+        <Button onPress={() => navigation.navigate('IntroScreen')}>
           Login
         </Button>
       </View>
@@ -118,7 +118,7 @@ const Home = ({navigation}) => {
               <Text>Gemar Membaca</Text>
           </TouchableOpacity>
         </View>
-        <Button style={styles.button} onPress={onLogOut}>Keluar</Button>
+        <Button style={styles.button} onPress={() => onLogOut()}>Keluar</Button>
       </View>
     </ScrollView>
   );

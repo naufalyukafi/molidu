@@ -28,8 +28,11 @@ const Intro = ({navigation}) => {
         source={require('../../../assets/images/logo.png')}
         style={styles.logo}
       />
-      <Button status='basic' style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+      <Button status='control' style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
         Masuk
+      </Button>
+      <Button status='control' style={styles.button} onPress={() => navigation.navigate('SignupScreen')}>
+        Daftar
       </Button>
       {/* <Text
         style={{
