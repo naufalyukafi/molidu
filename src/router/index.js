@@ -63,8 +63,8 @@ const Router = () => {
     try {
       const data = await AsyncStorage.getItem(key);
       if (data !== null) {
-        // setCurrentUser(data)
-        console.log("current user data", data);
+        setCurrentUser(data)
+        // console.log("current user data", data);
         return data;
       }
     } catch (error) {
@@ -92,10 +92,9 @@ const Router = () => {
   // console.log('current user ', currentUser)
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen">
-
+      <Stack.Navigator initialRouteName={`${currentUser === undefined ? "SplashScreen" : "HomeScreen"}`}>
         {
-          // currentUser === undefined && 
+          currentUser === undefined && 
           <>
                   <Stack.Screen
                     name="SplashScreen"
@@ -255,7 +254,7 @@ const Router = () => {
           name="Room"
           component={RoomScreen}
           options={({route}) => ({
-            title: route.params.item.name,
+            title: route.params.thread.name,
             headerStyle: {backgroundColor: '#1890FF'},
             headerTintColor: '#fff',
             headerTitleAlign: 'center',

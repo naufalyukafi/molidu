@@ -75,7 +75,8 @@ const ListBook = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   list: {
     marginBottom: 20
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: 'blue',
-    borderRadius: 30
+    borderRadius: 10
   }
 });
 

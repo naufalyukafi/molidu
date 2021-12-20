@@ -31,7 +31,7 @@ const Intro = ({navigation}) => {
       <Button status='control' style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
         Masuk
       </Button>
-      <Button status='control' style={styles.button} onPress={() => navigation.navigate('SignupScreen')}>
+      <Button style={styles.buttonDaftar} onPress={() => navigation.navigate('SignupScreen')}>
         Daftar
       </Button>
       {/* <Text
@@ -84,10 +84,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   button: {
-    // backgroundColor: '#FFF',
-    color: '#1890FF',
     width: '100%',
+    color: '#1890FF',
     marginTop: 15
+  },
+  buttonDaftar: {
+    backgroundColor: '#3c5bb8',
+    width: '100%',
+    marginTop: 15,
   },
   image: {
     width: '100%',

@@ -59,8 +59,8 @@ const UploadTugas = (threadLesson) => {
         />
         <View style={{width: '100%', justifyContent: 'center', flexDirection: 'row'}}>
         {photos.length > 3 && ( alert('foto tidak boleh melebihi dari 3 gambar') + setPhotos(null) )}
-        {photos.map(item => (
-          <View>
+        {photos.map((item, index) => (
+          <View key={index}>
             <Image
               source={{uri: item}}
               style={styles.images}

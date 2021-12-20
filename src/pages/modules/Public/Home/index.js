@@ -72,7 +72,7 @@ const Home = ({navigation}) => {
     return (
       <View style={styles.isNotLogin}>
         <Button onPress={() => navigation.navigate('IntroScreen')}>
-          Login
+          Please Wating...
         </Button>
       </View>
     );
@@ -129,13 +129,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
   image: {
     width: '100%',
   },
   icon: {
-    width: '75%'
+    width: '75%',
+    // height: 70
   },
   wrapperMenus: {
     flexDirection: 'row',
@@ -148,12 +149,23 @@ const styles = StyleSheet.create({
     width: '46%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    // borderRadius: 5,
     backgroundColor: '#fff',
-    margin: 5,
+    margin: 7,
     paddingBottom: 5,
     paddingTop: 5,
-    borderWidth: 1
+    shadowColor: '#CFCDCD',
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 2,
+    backgroundColor: '#fff',
+    // padding: 20,
+    // width: '46%',
+    borderRadius: 5,
+    // marginTop: 20,
+    // marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#CFCDCD',
   },
   button: {
     marginTop: 10,
