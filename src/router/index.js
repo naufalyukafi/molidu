@@ -6,7 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import {
   GoogleSignin,
 } from '@react-native-google-signin/google-signin';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IntroScreen, LoginScreen, SignupScreen} from '../pages/auth';
 // admin
 import {LoginAdmin} from '../pages/admin/auth'
@@ -58,24 +58,24 @@ const Router = () => {
     />
   );
 
-  const getData = async (key) => {
-    // get Data from Storage
-    try {
-      const data = await AsyncStorage.getItem(key);
-      if (data !== null) {
-        setCurrentUser(data)
-        // console.log("current user data", data);
-        return data;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getData = async (key) => {
+  //   // get Data from Storage
+  //   try {
+  //     const data = await AsyncStorage.getItem(key);
+  //     if (data !== null) {
+  //       setCurrentUser(data)
+  //       // console.log("current user data", data);
+  //       return data;
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   
   React.useEffect(async () => {
-    await getData('user')
-      .then(data => setCurrentUser(data))
-      .catch(err => console.log(err))
+    // await getData('user')
+    //   .then(data => setCurrentUser(data))
+    //   .catch(err => console.log(err))
     GoogleSignin.configure({
       webClientId: '736070341526-qgs3l787oh7pfkgktcnrftaos948jk8m.apps.googleusercontent.com',
       offlineAccess: true
@@ -92,9 +92,7 @@ const Router = () => {
   // console.log('current user ', currentUser)
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={`${currentUser === undefined ? "SplashScreen" : "HomeScreen"}`}>
-        {
-          currentUser === undefined && 
+      <Stack.Navigator initialRouteName="SplashScreen">
           <>
                   <Stack.Screen
                     name="SplashScreen"
@@ -131,7 +129,6 @@ const Router = () => {
                       }}
                     />
           </>
-        }
        
         <Stack.Screen
           name="HomeScreen"

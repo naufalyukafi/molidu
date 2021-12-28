@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Alert, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {Text, Button} from '@ui-kitten/components';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+// import AsyncStorage from '@react-native-async-storage/async-storage'
 const Home = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -17,7 +17,7 @@ const Home = ({navigation}) => {
   const onLogOut = async () => {
     try {
         await auth().signOut();
-        await AsyncStorage.clear()
+        // await AsyncStorage.clear()
         navigation.navigate('IntroScreen');
     } catch (e) {
         console.log(e);
@@ -45,23 +45,23 @@ const Home = ({navigation}) => {
     }
   };
 
-  const getData = async (key) => {
-    // get Data from Storage
-    try {
-      const data = await AsyncStorage.getItem(key);
-      if (data !== null) {
-        console.log(data);
-        return data;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getData = async (key) => {
+  //   // get Data from Storage
+  //   try {
+  //     const data = await AsyncStorage.getItem(key);
+  //     if (data !== null) {
+  //       console.log(data);
+  //       return data;
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(async () => {
-    await getData('user')
-    .then(data => console.log(data))
-    .catch(err => console.log(err))
+    // await getData('user')
+    // .then(data => console.log(data))
+    // .catch(err => console.log(err))
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);

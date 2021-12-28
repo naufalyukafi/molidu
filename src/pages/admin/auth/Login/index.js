@@ -26,7 +26,28 @@ const LoginAdmin = ({ navigation }) => {
 
   const onLogin = () => {
     if(email === "adminmolidu@gmail.com" && password === "admin") {
-      navigation.navigate('HomeAdmin');
+      auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setEmail('');
+        setPassword('');
+        // console.log
+        // AsyncStorage.setItem('user', JSON.stringify(data.user))
+        Alert.alert('Sukses Login!', 'Anda berhasil masuk akun molidu sebagai admin');
+        navigation.navigate('HomeAdmin');
+      })
+      .catch(error => {
+        if (error.code === 'auth/invalid-email') {
+          Alert.alert('Email Anda salah', 'Sepertinya email yang anda masukan salah, mohon segera koreksi kembali!');
+        } else if(error.code === 'auth/user-not-found') {
+          Alert.alert('User tidak ditemukan', 'Sepertinya alamat email yang anda masukan tidak terdaftar di sistem, mohon koreksi kembali!')
+        } else if(error.code === 'auth/wrong-password') {
+          Alert.alert('Password Anda salah', 'Sepertinya passwod yang anda masukan salah, mohon segera koreksi kembali!')
+        } else {
+          Alert.alert(error.code);
+        }
+      });
+      
     } else {
       alert('Anda belum terdaftar sebagai admin')
     }
