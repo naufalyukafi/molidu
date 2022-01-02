@@ -86,7 +86,7 @@ const Lesson = ({navigation}) => {
               style={styles.box}
               key={item._id}
               onPress={() => {
-                if (currentUser.email === 'molidulearning@gmail.com') {
+                if (currentUser.email === 'yukafit@gmail.com') {
                   navigation.navigate('RoomLesson', {threadLesson: item});
                 } else {
                   navigation.navigate('RoomStudent', {threadLesson: item});

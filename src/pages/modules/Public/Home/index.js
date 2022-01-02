@@ -16,13 +16,15 @@ const Home = ({navigation}) => {
 
   const onLogOut = async () => {
     try {
-        await auth().signOut();
-        // await AsyncStorage.clear()
-        navigation.navigate('IntroScreen');
+      await auth()
+      .signOut()
+      .then(() =>  navigation.navigate('IntroScreen'));
+     
     } catch (e) {
         console.log(e);
     }
   };
+
   const onAbsensi = () => {
     if (user.email === 'yukafit@gmail.com') {
       navigation.navigate('AbsensiGuru');

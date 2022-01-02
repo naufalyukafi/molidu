@@ -3,10 +3,12 @@ import {
   View,
   StyleSheet,
   Image,
+  Alert,
   TouchableOpacity,
   TouchableWithoutFeedback
 } from 'react-native';
 import {Button, Text, Icon, Input} from '@ui-kitten/components';
+import auth from '@react-native-firebase/auth';
 // import auth from '@react-native-firebase/auth';
 
 const LoginAdmin = ({ navigation }) => {
@@ -25,7 +27,7 @@ const LoginAdmin = ({ navigation }) => {
   );
 
   const onLogin = () => {
-    if(email === "adminmolidu@gmail.com" && password === "admin") {
+    if(email === "adminmolidu@gmail.com" && password === "admin123") {
       auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
